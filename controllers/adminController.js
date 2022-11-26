@@ -73,7 +73,7 @@ const register = async (req, res) => {
 // Login user
 const login = async (req, res, next) => {
     let {username, password} = req.body;
-    AdminRegister.findOne({$or: [{username:username}, {email:username}]})
+    Admin.findOne({$or: [{username:username}, {email:username}]})
     .then(admin => {
             bcrypt.compare(password, admin.password, (err, result) => {
                 if (err) {

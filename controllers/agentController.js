@@ -1,4 +1,4 @@
-const Agent = require('../models/AdminModel');
+const Agent = require('../models/AgentModel');
 const AdminChat = require('../models/AdminChatModel');
 const AllChats = require('../models/AllChatsModel');
 const bcrypt = require('bcryptjs');
