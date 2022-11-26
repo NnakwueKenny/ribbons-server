@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const userchat = async (req, res) => {
     // console.log('Request Body:', req.body);
-    const { sender, receiver, msg, dept, loc, status, sessionEnded } = req.body;
+    const { sender, receiver, msg, dept, loc, status } = req.body;
     // console.log( sender, receiver, msg, reason, loc, status, sessionEnded );
 
     
@@ -15,8 +15,7 @@ const userchat = async (req, res) => {
         msg: msg,
         dept: dept,
         loc: loc,
-        status: status,
-        sessionEnded: sessionEnded
+        status: status
     });
 
     userChat.save()

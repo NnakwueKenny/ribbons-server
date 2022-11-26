@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const adminchat = async (req, res) => {
-    const { sender, receiver, msg, dept, loc, status, sessionEnded } = req.body;
+    const { sender, receiver, msg, dept, loc, status} = req.body;
     // console.log( sender, receiver, msg, reason, loc, status, sessionEnded );
 
     
@@ -14,8 +14,7 @@ const adminchat = async (req, res) => {
         msg: msg,
         dept: dept,
         loc: loc,
-        status: status,
-        sessionEnded: sessionEnded
+        status: status
     });
 
     adminChat.save()

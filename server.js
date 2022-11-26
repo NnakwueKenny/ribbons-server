@@ -16,6 +16,7 @@ const adminRegisterRoute = require('./routes/adminRegister');
 const adminLoginRoute = require('./routes/adminLogin');
 const adminRoute = require('./routes/admin');
 const adminChatRoute = require('./routes/adminChat');
+const allChatsRoute = require('./routes/allChats');
 
 const connectDB = require('./config/dbConnection');
 connectDB();
@@ -54,3 +55,6 @@ server.use('/admin', adminRegisterRoute);
 server.use('/admin', adminLoginRoute);
 server.use('/admin', adminRoute);
 server.use('/admin', adminChatRoute);
+
+// AllChats Route
+server.use('/all-chats', allChatsRoute);

@@ -22,9 +22,6 @@ const userChatSchema = new Schema(
             type: String,
             required: true
         },
-        sessionEnded: {
-            type: Boolean
-        },
         status: {
             type: Number
         }

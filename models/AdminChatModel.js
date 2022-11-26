@@ -23,10 +23,6 @@ const adminChatSchema = new Schema(
             type: String,
             required: true
         },
-        sessionEnded: {
-            type: Boolean,
-            required: true
-        },
         status: {
             type: Number
         }
