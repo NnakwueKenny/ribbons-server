@@ -9,6 +9,13 @@ const allChatsSchema = new Schema({
     message: {
         type: Array,
         required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    lastUpdatedAt: {
+        type: String
     }
 }, {timestamps: true});
 

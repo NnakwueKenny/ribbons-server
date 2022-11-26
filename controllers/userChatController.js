@@ -7,7 +7,6 @@ const userchat = async (req, res) => {
     // console.log('Request Body:', req.body);
     const { sender, receiver, msg, dept, loc, status } = req.body;
     // console.log( sender, receiver, msg, reason, loc, status, sessionEnded );
-
     
     let userChat = new UserChat({
         sender: sender,
@@ -27,9 +26,11 @@ const userchat = async (req, res) => {
                 {
                     dept: dept,
                     content: msg,
-                    status: 'sent'
+                    status: 'sent',
                 }
-            ]
+            ],
+            lastUpdatedAt: Date.now(),
+            location: loc
         });
 
         AllChats.findOne({ user: sender })
@@ -42,11 +43,15 @@ const userchat = async (req, res) => {
                     status: 'sent'
                 })
                 user.message = messages;
+                if (user.location !== loc) [
+                    user.location = loc
+                ]
+                user.lastUpdatedAt = Date.now();
                 user.save()
                 .then(response => {
                     console.log(response, 'line 42');
                     res.json({
-                        response,
+                        user,
                     });
                 })
                 console.log(user, 'line 28');

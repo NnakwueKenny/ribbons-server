@@ -1,8 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const adminRegisterSchema = new Schema({
-    name: {
+const complaintSchema = new Schema({
+    cat: {
+        type: String,
+        required: true
+    },
+    desc: {
+        type: String,
+        required: true
+    },
+    medium: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: Boolean,
+        required: true
+    },
+    loc: {
         type: String,
         required: true
     },
@@ -10,33 +26,17 @@ const adminRegisterSchema = new Schema({
         type: String,
         required: true
     },
-    email: {
+    sent_to: {
         type: String,
         required: true
     },
-    username: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    dept: {
-        type: String,
-        required: true
-    },
-    loc: {
-        type: String,
-        required: true
-    },
-    accessToken: {
+    id: {
         type: String
-    },
+    }
     // avatars: {
     //     type: String
     // },
 }, {timestamps: true});
 
-const AdminRegister = mongoose.model('AdminRegister', adminRegisterSchema);
-module.exports = AdminRegister;
+const Complaint = mongoose.model('Complaint', complaintSchema);
+module.exports = Complaint;

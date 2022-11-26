@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
+// const express = require('express');
+// const router = express.Router();
 
-const allChatsController = require('../controllers/allChatsController');
+// const allChatsController = require('../controllers/allChatsController');
 
-router.post('/current-chat', allChatsController.allchats);
+// router.post('/current-chat', allChatsController.allchats);
 
-module.exports = router;
+// module.exports = router;

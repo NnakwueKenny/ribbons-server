@@ -1,4 +1,4 @@
-const Admin = require('../models/AdminModel');
+const Agent = require('../models/AdminModel');
 const AdminChat = require('../models/AdminChatModel');
 const AllChats = require('../models/AllChatsModel');
 const bcrypt = require('bcryptjs');
@@ -7,23 +7,18 @@ const jwt = require('jsonwebtoken');
 // Register User
 const register = async (req, res) => {
     console.log('Request Body:', req.body);
-    const {name, phone, email, username, password, confirmPassword, loc} = req.body;
+    const {name, phone, email, username, password, confirmPassword, dept, loc} = req.body;
     // console.log('SPLITTED PASSWORD', password.split(' ').join('').length);
-    console.log(name, phone, email, username, password, confirmPassword, loc);
+    console.log(name, phone, email, username, password, confirmPassword, dept, loc);
 
-    Admin.findOne({
-        $or: [
-            { username: username },
-            {loc: loc}
-        ]
-    }, (err, userExists) => {
+    Agent.findOne({ username: username }, (err, userExists) => {
         if (err) {
             return res.status(422).send(err);
         }
         if (userExists) {
-            console.log('User already exists.')
+            console.log('Agent already exists.')
             return res.status(422).send({
-                error: 'User already exists.'
+                error: 'Agent already exists.'
             });
         } else {
             bcrypt.hash(password, 10, (err, hashedPassword) => {
@@ -34,18 +29,19 @@ const register = async (req, res) => {
                 } else {
                     if (password !== '' || confirmPassword !== '') {
                         if (confirmPassword === password) {
-                            const user = new Admin({
+                            const agent = new Agent({
                                 name: name,
                                 phone: phone,
                                 email: email,
                                 username: username,
                                 password: hashedPassword,
+                                dept: dept,
                                 loc: loc,
                             });
                 
-                            user.save()
-                            .then((user) => res.json( {
-                                    message: `User account for ${user.name} has been created successfully!`
+                            agent.save()
+                            .then((currentAgent) => res.json( {
+                                    message: `User account for ${currentAgent.name} has been created successfully!`
                                 })
                             )
                             .catch(err => {
@@ -70,11 +66,11 @@ const register = async (req, res) => {
     });
 }
 
-// Login user
+// Login Agent
 const login = async (req, res, next) => {
     let {username, password} = req.body;
-    AdminRegister.findOne({$or: [{username:username}, {email:username}]})
-    .then(admin => {
+    Agent.findOne({$or: [{username:username}, {email:username}]})
+    .then(agent => {
             bcrypt.compare(password, admin.password, (err, result) => {
                 if (err) {
                     res.json(
@@ -93,9 +89,9 @@ const login = async (req, res, next) => {
                             accessToken: accessToken
                         }
                     )
-                    admin.accessToken = accessToken;
+                    agent.accessToken = accessToken;
                     console.log(admin);
-                    admin.save()
+                    agent.save()
                 } else {
                     res.status(422).json(
                         {
@@ -107,17 +103,17 @@ const login = async (req, res, next) => {
         }
     )
     .catch (err => res.json(
-        {message: 'No user matched the provided details!'}
+        {message: 'No agent matched the provided details!'}
     ))
 }
 
-// Show all user's data
-// let currentUser = '';
+// Show all agent's data
+// let currentAgent = '';
 const index = (req, res, next) => {
     const {accessToken} = req.body;
     console.log(accessToken);
 
-    Admin.findOne({accessToken})
+    Agent.findOne({accessToken})
     .then(response => {
         res.json({
             response
@@ -130,12 +126,12 @@ const index = (req, res, next) => {
     });
 };
 
-// All aboout admin chats
-const adminchat = async (req, res) => {
+// All about agent chats
+const agentChat = async (req, res) => {
     const { sender, receiver, msg, dept, loc, status} = req.body;
     // console.log( sender, receiver, msg, reason, loc, status, sessionEnded );
     
-    let adminChat = new AdminChat({
+    let agentchat = new AdminChat({
         sender: sender,
         receiver: receiver,
         msg: msg,
@@ -144,8 +140,8 @@ const adminchat = async (req, res) => {
         status: status
     });
 
-    adminChat.save()
-    .then(adminChatRes => {
+    agentchat.save()
+    .then(agentChatRes => {
         // Update AllChats
         let allChats = new AllChats({
             user: receiver,
@@ -184,7 +180,7 @@ const adminchat = async (req, res) => {
                 allChats.save()
                 .then(allChatRes => {
                     res.json({
-                        adminChatRes,
+                        agentChatRes,
                         allChatRes
                     });
                 })
@@ -203,5 +199,5 @@ module.exports = {
     register,
     login,
     index,
-    adminchat
+    agentChat
 }

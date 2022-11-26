@@ -8,15 +8,23 @@ const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 
 // import routes
-// const registerRoute = require('./routes/register');
-// const authRoute = require('./routes/auth');
-// const usersRoute = require('./routes/users');
 const userChatRoute = require('./routes/userChat');
+// const allChatsRoute = require('./routes/allChats');
+
 const adminRegisterRoute = require('./routes/adminRegister');
 const adminLoginRoute = require('./routes/adminLogin');
 const adminRoute = require('./routes/admin');
 const adminChatRoute = require('./routes/adminChat');
-const allChatsRoute = require('./routes/allChats');
+
+const agentRegisterRoute = require('./routes/agentRegister');
+const agentLoginRoute = require('./routes/agentLogin');
+// const adminRoute = require('./routes/agent');
+// const agentChatRoute = require('./routes');
+
+const sendComplaintRoute = require('./routes/sendComplaint');
+const updateComplaintRoute = require('./routes/updateComplaint');
+const getAllComplaintsRoute = require('./routes/getAllComplaints');
+const getOneComplaintRoute = require('./routes/getOneComplaint');
 
 const connectDB = require('./config/dbConnection');
 connectDB();
@@ -42,19 +50,25 @@ server.use(bodyParser.json());
 // To access public files
 server.use('/uploads', express.static('uploads'))
 
-// server.use('/user', registerRoute);
-// server.use('/user', authRoute);
-// server.use('/user', usersRoute);
-// server.use('/employee', employeeRoute);
-
 // User Routes
 server.use('/user', userChatRoute);
 
 // Admin Routes
+// server.use('/admin', adminRoute);
 server.use('/admin', adminRegisterRoute);
 server.use('/admin', adminLoginRoute);
-server.use('/admin', adminRoute);
 server.use('/admin', adminChatRoute);
 
+// Agent Routes
+// server.use('/admin', adminRoute);
+server.use('/agent', agentRegisterRoute);
+server.use('/agent', agentLoginRoute);
+
 // AllChats Route
-server.use('/all-chats', allChatsRoute);
+// server.use('/all-chats', allChatsRoute);
+
+// Complaints Routes
+server.use('/complaint', sendComplaintRoute);
+server.use('/complaint', updateComplaintRoute);
+server.use('/complaint', getAllComplaintsRoute);
+server.use('/complaint', getOneComplaintRoute);
