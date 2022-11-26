@@ -23,8 +23,7 @@ const userChatSchema = new Schema(
             required: true
         },
         sessionEnded: {
-            type: Boolean,
-            required: true
+            type: Boolean
         },
         status: {
             type: Number

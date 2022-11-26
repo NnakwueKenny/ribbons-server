@@ -46,3 +46,17 @@
 20221125	17:54:08  58a6cfeb-1a14-4608-a762-d93f2a25e669  POST undefined /user/chat
 20221125	17:55:53  42a12aaa-d8ee-4bf2-9e17-997af86d8cfd  POST undefined /user/chat
 20221125	17:56:36  48d9ca66-6756-415d-8edf-ee812dce632e  POST undefined /user/chat
+20221125	18:09:22  b2239182-d540-4256-97a3-d25db2188c1c  GET undefined /admin/currentUser
+20221125	18:14:02  5e6294e8-b720-4e5d-8597-ebdd3bea458b  GET undefined /admin/currentUser
+20221126	03:59:11  ebb3c6a0-607d-4ac7-9e04-bddb20f58f18  GET undefined /admin/currentUser
+20221126	04:24:23  950ea4da-d881-4241-b71e-185d8d6bb37c  POST undefined /admin/chat
+20221126	04:27:30  ea106a13-0209-4a65-896d-2dc89a6e456c  POST undefined /admin/chat
+20221126	04:29:13  4e3139e3-994b-421b-8ee3-d9a0b6d0f783  POST undefined /user/chat
+20221126	04:29:24  0ebe2ed6-a9d3-4c95-8d34-533b798983ee  POST undefined /admin/chat
+20221126	04:30:01  1a4ca61d-3987-4b99-8011-6a88568d939f  POST undefined /user/chat
+20221126	04:30:11  2e79b17e-f208-4533-9704-c6b38f1a7340  POST undefined /admin/chat
+20221126	04:30:39  b61d042a-ced2-47bd-80a0-4dadab05c909  POST undefined /user/chat
+20221126	04:32:23  6d7523a2-be14-49eb-9356-abbd21fbcbd4  POST undefined /user/chat
+20221126	04:33:20  c300fde2-017a-4568-bc42-4c08fc4fc599  POST undefined /admin/chat
+20221126	04:34:03  152d8844-816d-4237-80ab-003f8bb86b21  POST undefined /user/chat
+20221126	04:35:03  2d19adb8-cb37-47a1-a10f-4fc916707a8e  POST undefined /admin/chat

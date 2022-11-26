@@ -1,7 +1,7 @@
 const User = require('../models/AdminRegisterModel');
 
 // Show all user's data
-let accessToken = '';
+let currentUser = '';
 const index = (req, res, next) => {
     const {accessToken} = req.body;
     console.log(accessToken);
@@ -21,5 +21,4 @@ const index = (req, res, next) => {
 
 module.exports = {
     index,
-    accessToken
 }

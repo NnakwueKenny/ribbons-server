@@ -1,15 +1,14 @@
-const UserChat = require('../models/UserChatModel');
+const AdminChat = require('../models/AdminChatModel');
 const AllChats = require('../models/AllChatsModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const userchat = async (req, res) => {
-    // console.log('Request Body:', req.body);
+const adminchat = async (req, res) => {
     const { sender, receiver, msg, dept, loc, status, sessionEnded } = req.body;
     // console.log( sender, receiver, msg, reason, loc, status, sessionEnded );
 
     
-    let userChat = new UserChat({
+    let adminChat = new AdminChat({
         sender: sender,
         receiver: receiver,
         msg: msg,
@@ -19,11 +18,11 @@ const userchat = async (req, res) => {
         sessionEnded: sessionEnded
     });
 
-    userChat.save()
-    .then(userChatRes => {
+    adminChat.save()
+    .then(adminChatRes => {
         // Update AllChats
         let allChats = new AllChats({
-            user: sender,
+            user: receiver,
             message: [
                 {
                     dept: dept,
@@ -33,30 +32,27 @@ const userchat = async (req, res) => {
             ]
         });
 
-        AllChats.findOne({ user: sender })
+        AllChats.findOne({ user: receiver })
         .then(user => {
             if (user) {
                 const messages = user.message;
                 messages.push({
                     dept: dept,
                     content: msg,
-                    status: 'sent'
+                    status: 'received'
                 })
                 user.message = messages;
                 user.save()
                 .then(response => {
-                    console.log(response, 'line 42');
                     res.json({
                         response,
                     });
                 })
-                console.log(user, 'line 28');
             } else {
                 allChats.save()
                 .then(allChatRes => {
-                    console.log(allChatRes, 'line 42');
                     res.json({
-                        userChatRes,
+                        adminChatRes,
                         allChatRes
                     });
                 })
@@ -71,5 +67,5 @@ const userchat = async (req, res) => {
     });
 }
 module.exports = {
-    userchat
+    adminchat
 }

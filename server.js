@@ -14,6 +14,8 @@ const corsOptions = require('./config/corsOptions');
 const userChatRoute = require('./routes/userChat');
 const adminRegisterRoute = require('./routes/adminRegister');
 const adminLoginRoute = require('./routes/adminLogin');
+const adminRoute = require('./routes/admin');
+const adminChatRoute = require('./routes/adminChat');
 
 const connectDB = require('./config/dbConnection');
 connectDB();
@@ -50,3 +52,5 @@ server.use('/user', userChatRoute);
 // Admin Routes
 server.use('/admin', adminRegisterRoute);
 server.use('/admin', adminLoginRoute);
+server.use('/admin', adminRoute);
+server.use('/admin', adminChatRoute);

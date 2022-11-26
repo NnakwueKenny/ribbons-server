@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userChatSchema = new Schema(
+const adminChatSchema = new Schema(
     {
         sender: {
             type: String,
@@ -15,8 +15,9 @@ const userChatSchema = new Schema(
             type: String,
             required: true
         },
-        reason: {
-            type: String
+        dept: {
+            type: String,
+            required: true
         },
         loc: {
             type: String,
@@ -33,5 +34,5 @@ const userChatSchema = new Schema(
     {timestamps: true}
 );
 
-const UserChat = mongoose.model('UserChat', userChatSchema);
-module.exports = UserChat;
+const adminChat = mongoose.model('adminChat', adminChatSchema);
+module.exports = adminChat;
