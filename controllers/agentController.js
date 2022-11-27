@@ -6,12 +6,12 @@ const jwt = require('jsonwebtoken');
 
 // Register User
 const register = async (req, res) => {
-    console.log('Request Body:', req.body);
     const {name, phone, email, username, password, confirmPassword, dept, loc} = req.body;
     // console.log('SPLITTED PASSWORD', password.split(' ').join('').length);
     console.log(name, phone, email, username, password, confirmPassword, dept, loc);
 
-    Agent.findOne({ username: username }, (err, userExists) => {
+    Agent.findOne({$or: [{ username: username }, {loc: loc} ]},
+        (err, userExists) => {
         if (err) {
             return res.status(422).send(err);
         }
@@ -68,10 +68,16 @@ const register = async (req, res) => {
 
 // Login Agent
 const login = async (req, res, next) => {
-    let {username, password} = req.body;
-    Agent.findOne({$or: [{username:username}, {email:username}]})
+    let { username, password } = req.body;
+    console.log(username, password);
+    // await Agent.findOne({$or: [{username:username}, {email:username}]})
+    // .then(result => {
+    //     console.log('The result:',result)
+    // })
+    
+    await Agent.findOne({$or: [{username:username}, {email:username}]})
     .then(agent => {
-            bcrypt.compare(password, admin.password, (err, result) => {
+            bcrypt.compare(password, agent.password, (err, result) => {
                 if (err) {
                     res.json(
                         {error: err}
@@ -79,7 +85,7 @@ const login = async (req, res, next) => {
                 }
                 if (result) {
                     let accessToken = jwt.sign(
-                        {username: admin.username},
+                        {username: agent.username},
                         process.env.accessToken,
                         {expiresIn: '7d'}
                     );
@@ -90,7 +96,7 @@ const login = async (req, res, next) => {
                         }
                     )
                     agent.accessToken = accessToken;
-                    console.log(admin);
+                    console.log(agent);
                     agent.save()
                 } else {
                     res.status(422).json(
@@ -102,9 +108,9 @@ const login = async (req, res, next) => {
             })
         }
     )
-    .catch (err => res.json(
-        {message: 'No agent matched the provided details!'}
-    ))
+    // .catch (err => res.json(
+    //     {message: 'No agent matched the provided details!'}
+    // ))
 }
 
 // Show all agent's data

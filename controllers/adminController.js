@@ -70,7 +70,7 @@ const register = async (req, res) => {
     });
 }
 
-// Login user
+// Login Admin
 const login = async (req, res, next) => {
     let {username, password} = req.body;
     Admin.findOne({$or: [{username:username}, {email:username}]})
@@ -130,7 +130,7 @@ const index = (req, res, next) => {
     });
 };
 
-// All aboout admin chats
+// All about admin chats
 const adminchat = async (req, res) => {
     const { sender, receiver, msg, dept, loc, status} = req.body;
     // console.log( sender, receiver, msg, reason, loc, status, sessionEnded );

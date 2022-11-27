@@ -8,11 +8,14 @@ const sendComplaint = async (req, res) => {
     // console.log('Request Body:', req.body);
     // Generate random ID for the complaint
     const {v4: uuid} = require('uuid');
-    const {cat, desc, medium, status, loc, phone, sent_to} = req.body;
-    console.log(cat, desc, medium, status, loc, phone, sent_to);
+    const {cat, name, desc, medium, status, loc, phone, sent_to} = req.body;
+    console.log(cat, name, desc, medium, status, loc, phone, sent_to);
+
+    
 
     const complaint = new Complaint({
         cat: cat,
+        name: name,
         desc: desc,
         medium: medium,
         status: false,
