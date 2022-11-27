@@ -107,7 +107,7 @@ const login = async (req, res, next) => {
         }
     )
     .catch (err => res.json(
-        {message: 'No user matched the provided details!'}
+        {err: err}
     ))
 }
 
@@ -119,13 +119,11 @@ const index = (req, res, next) => {
 
     Admin.findOne({accessToken})
     .then(response => {
-        res.json({
-            response
-        });
+        res.json(response);
     })
     .catch(err => {
         res.json({
-            message: 'An error just occured'
+            notFound: 'An error just occured'
         });
     });
 };

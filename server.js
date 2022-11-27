@@ -54,7 +54,7 @@ server.use('/uploads', express.static('uploads'))
 server.use('/user', userChatRoute);
 
 // Admin Routes
-// server.use('/admin', adminRoute);
+server.use('/admin', adminRoute);
 server.use('/admin', adminRegisterRoute);
 server.use('/admin', adminLoginRoute);
 server.use('/admin', adminChatRoute);

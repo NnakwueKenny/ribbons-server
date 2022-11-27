@@ -30,6 +30,10 @@ const complaintSchema = new Schema({
         type: String,
         required: true
     },
+    sent_by: {
+        type: String,
+        required: true
+    },
     sent_to: {
         type: String,
         required: true

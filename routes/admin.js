@@ -6,6 +6,6 @@ const upload = require('../middleware/upload');
 
 // const accessToken = usersController.accessToken;
 
-router.get(`/currentUser`, usersController.index);
+router.post(`/current-admin`, usersController.index);
 
 module.exports = router;

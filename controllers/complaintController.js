@@ -8,37 +8,46 @@ const sendComplaint = async (req, res) => {
     // console.log('Request Body:', req.body);
     // Generate random ID for the complaint
     const {v4: uuid} = require('uuid');
-    const {cat, name, desc, medium, status, loc, phone, sent_to} = req.body;
-    console.log(cat, name, desc, medium, status, loc, phone, sent_to);
+    const {cat, name, desc, medium, status, loc, phone, sent_by} = req.body;
+    console.log(cat, name, desc, medium, status, loc, phone, sent_by);
 
-    
+    const agentsInLoc = await Agent.find( { $and: [ { dept: cat }, { loc: loc } ]});         //Agents in location under specified department
 
-    const complaint = new Complaint({
-        cat: cat,
-        name: name,
-        desc: desc,
-        medium: medium,
-        status: false,
-        loc: loc,
-        phone: phone,
-        sent_to: sent_to,
-        id: uuid()
-    })
-
-    complaint.save()
-    .then(complaints => {
-        res.json({
-            complaints
+    if (agentsInLoc.length > 0) {
+        const randomAgentInLocation = agentsInLoc[Math.floor(Math.random() * agentsInLoc.length)];      // Random Agent from above
+        const sent_to = randomAgentInLocation.username;
+        const complaint = new Complaint({
+            cat: cat,
+            name: name,
+            desc: desc,
+            medium: medium,
+            status: false,
+            loc: loc,
+            phone: phone,
+            sent_by: sent_by,
+            sent_to: sent_to,
+            id: uuid()
         })
-    })
-    .catch(err => res.json({err}));
+    
+        complaint.save()
+        .then(complaints => {
+            res.json({
+                complaints
+            })
+        })
+        .catch(err => res.json({err}));
+    } else {
+        res.status(404).json({
+            center: `No available ${cat} assistance centers in your location. We shall notify you when and if we do...`
+        })
+    }
 }
 
 const updateComplaint = async (req, res) => {
     console.log('Hello');
     const { updateStatus, complaintID } = req.body;
 
-    Complaint.find({id: complaintID})
+    Complaint.findOne({id: complaintID})
     .then(complaint => {
         if (complaint) {
 
@@ -59,8 +68,9 @@ const updateComplaint = async (req, res) => {
 
             // Resolve Complaint
             if (updateStatus === 'resolved') {
+                console.log(complaint)
                 complaint.status = updateStatus;
-                complaint.save()
+                Complaint.findOneAndUpdate({status: true})
                 .then(() => {
                     res.json({
                         message: `Complaint ${complaintID} resolved successfully!`
@@ -90,7 +100,9 @@ const getOneComplaint = (req, res) => {
                 complaint
             })
         } else {
-            
+            res.json({
+                complaint: `No complaint found!`
+            })
         }
     })
     .catch(err => res.json({
@@ -99,9 +111,9 @@ const getOneComplaint = (req, res) => {
 }
 
 const getAllComplaints = (req, res) => {
-    const { location } = req.body;
+    const { loc } = req.body;
 
-    Complaint.find({loc: location})
+    Complaint.find({loc: loc})
     .then(complaints => {
         res.json({
             complaints
