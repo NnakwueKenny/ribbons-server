@@ -1,9 +1,13 @@
 {
-  "name": "ribbons server",
+  "name": "ribbons-server",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kene Nnakwue",
