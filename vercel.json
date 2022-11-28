@@ -1,10 +1,10 @@
 {
     "version": 2,
-    "name": "ribbons server",
+    "name": "ribbons-server",
     "builds": [
-      { "src": "script.js", "use": "@vercel/node" }
+      { "src": "./server.js", "use": "@vercel/node" }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "/server.js" }
+      { "src": "/(.*)", "dest": "/" }
     ]
   }
