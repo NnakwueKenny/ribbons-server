@@ -11,14 +11,14 @@ const corsOptions = require('./config/corsOptions');
 const userChatRoute = require('./routes/userChat');
 // const allChatsRoute = require('./routes/allChats');
 
+const adminRoute = require('./routes/admin');
 const adminRegisterRoute = require('./routes/adminRegister');
 const adminLoginRoute = require('./routes/adminLogin');
-const adminRoute = require('./routes/admin');
 const adminChatRoute = require('./routes/adminChat');
 
+const agentRoute = require('./routes/agent');
 const agentRegisterRoute = require('./routes/agentRegister');
 const agentLoginRoute = require('./routes/agentLogin');
-// const adminRoute = require('./routes/agent');
 // const agentChatRoute = require('./routes');
 
 const sendComplaintRoute = require('./routes/sendComplaint');
@@ -60,7 +60,7 @@ server.use('/admin', adminLoginRoute);
 server.use('/admin', adminChatRoute);
 
 // Agent Routes
-// server.use('/admin', adminRoute);
+server.use('/agent', agentRoute);
 server.use('/agent', agentRegisterRoute);
 server.use('/agent', agentLoginRoute);
 

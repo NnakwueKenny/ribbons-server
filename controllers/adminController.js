@@ -12,9 +12,9 @@ const register = async (req, res) => {
     console.log(name, phone, email, username, password, confirmPassword, loc);
 
     Admin.findOne({
-        $or: [
-            { username: username },
-            {loc: loc}
+        $and: [
+            {loc: loc},
+            {$or: [{ username: username }, {email: email}]}
         ]
     }, (err, userExists) => {
         if (err) {
@@ -22,15 +22,11 @@ const register = async (req, res) => {
         }
         if (userExists) {
             console.log('User already exists.')
-            return res.status(422).send({
-                error: 'User already exists.'
-            });
+            return res.status(422).json('User already exists.');
         } else {
             bcrypt.hash(password, 10, (err, hashedPassword) => {
                 if (err) {
-                    res.json({
-                        error: err
-                    })
+                    res.json(err)
                 } else {
                     if (password !== '' || confirmPassword !== '') {
                         if (confirmPassword === password) {
@@ -49,20 +45,13 @@ const register = async (req, res) => {
                                 })
                             )
                             .catch(err => {
-                                return {
-                                    err,
-                                    error: 'Oops, an error has occured!'
-                                }
+                                res.json('Oops, an error has occured!')
                             })
                         } else {
-                            res.json(
-                                {passwordMismatch: 'Passwords do not match!'}
-                            )
+                            res.json('Passwords do not match!')
                         }
                     } else {
-                        res.json(
-                            {passwordEmpty: 'Please, provide password!'}
-                        )
+                        res.json('Please, provide password!')
                     }
                 }
             });

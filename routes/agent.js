@@ -6,6 +6,6 @@ const upload = require('../middleware/upload');
 
 // const accessToken = usersController.accessToken;
 
-router.get(`/currentUser`, agentController.index);
+router.get(`/current-agent`, agentController.index);
 
 module.exports = router;

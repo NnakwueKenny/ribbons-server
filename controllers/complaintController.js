@@ -111,13 +111,11 @@ const getOneComplaint = (req, res) => {
 }
 
 const getAllComplaints = (req, res) => {
-    const { loc } = req.body;
+    const { loc, username} = req.body;
 
-    Complaint.find({loc: loc})
+    Complaint.find({$and: [ { loc: loc }, { $or: [ { sent_by: username }, { sent_to: username }]} ]})
     .then(complaints => {
-        res.json({
-            complaints
-        })
+        res.json(complaints)
     })
     .catch(err => res.json({
         err
