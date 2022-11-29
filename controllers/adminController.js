@@ -96,9 +96,9 @@ const login = async (req, res, next) => {
             })
         }
     )
-    .catch (err => res.json(
+    .catch (err => {console.log(err); res.json(
         {err: 'No user matched the provided details!'}
-    ))
+    )})
 }
 
 // Show all user's data
