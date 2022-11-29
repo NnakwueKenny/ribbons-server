@@ -10,13 +10,12 @@ const sendDraft = async (req, res) => {
     const {v4: uuid} = require('uuid');
     const {cat, name, desc, medium, status, loc, phone} = req.body;
     console.log(cat, name, desc, medium, status, loc, phone);
-
     const draft = new Draft({
         cat: cat,
         name: name,
         desc: desc,
         medium: medium,
-        status: false,
+        status: status,
         loc: loc,
         phone: phone,
         id: uuid()
@@ -24,9 +23,7 @@ const sendDraft = async (req, res) => {
 
     draft.save()
     .then(draft => {
-        res.json({
-            draft
-        })
+        res.json(`Complaint saved successfully!`)
     })
     .catch(err => res.json({err}));
 }
@@ -58,7 +55,20 @@ const deleteDraft = async (req, res) => {
     })
 }
 
+const getAllDrafts = (req, res) => {
+    const { loc, username} = req.body;
+
+    Draft.find({ loc: loc })
+    .then(draft => {
+        res.json(draft)
+    })
+    .catch(err => res.json({
+        err
+    }))
+}
+
 module.exports = {
     sendDraft,
     deleteDraft,
+    getAllDrafts
 }

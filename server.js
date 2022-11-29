@@ -21,6 +21,7 @@ const agentRegisterRoute = require('./routes/agentRegister');
 const agentLoginRoute = require('./routes/agentLogin');
 // const agentChatRoute = require('./routes');
 
+const getAllDraftsRoute = require('./routes/getAllDrafts');
 const sendDraftRoute = require('./routes/sendDraft');
 const deleteDraftRoute = require('./routes/deleteDraft');
 
@@ -72,6 +73,7 @@ server.use('/agent', agentLoginRoute);
 // server.use('/all-chats', allChatsRoute);
 
 // Draft Routes
+server.use('/draft', getAllDraftsRoute);
 server.use('/draft', sendDraftRoute);
 
 // Complaints Routes
