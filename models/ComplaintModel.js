@@ -6,6 +6,10 @@ const complaintSchema = new Schema({
         type: String,
         required: true
     },
+    severity: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true

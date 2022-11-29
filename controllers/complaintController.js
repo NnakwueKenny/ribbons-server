@@ -1,4 +1,4 @@
-const Complaint = require('../models/Complaint');
+const Complaint = require('../models/ComplaintModel');
 const Agent = require('../models/AgentModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -8,16 +8,18 @@ const sendComplaint = async (req, res) => {
     // console.log('Request Body:', req.body);
     // Generate random ID for the complaint
     const {v4: uuid} = require('uuid');
-    const {cat, name, desc, medium, status, loc, phone, sent_by} = req.body;
-    console.log(cat, name, desc, medium, status, loc, phone, sent_by);
+    const {cat, severity, name, desc, medium, status, loc, phone, sent_by} = req.body;
+    console.log(cat, severity, name, desc, medium, status, loc, phone, sent_by);
 
     const agentsInLoc = await Agent.find( { $and: [ { dept: cat }, { loc: loc } ]});         //Agents in location under specified department
 
     if (agentsInLoc.length > 0) {
         const randomAgentInLocation = agentsInLoc[Math.floor(Math.random() * agentsInLoc.length)];      // Random Agent from above
         const sent_to = randomAgentInLocation.username;
+        const complaintID = uuid();
         const complaint = new Complaint({
             cat: cat,
+            severity: severity,
             name: name,
             desc: desc,
             medium: medium,
@@ -26,20 +28,16 @@ const sendComplaint = async (req, res) => {
             phone: phone,
             sent_by: sent_by,
             sent_to: sent_to,
-            id: uuid()
+            id: complaintID
         })
     
         complaint.save()
-        .then(complaints => {
-            res.json({
-                complaints
-            })
+        .then(complaint => {
+            res.json(`Complaint created successfully!`)
         })
-        .catch(err => res.json({err}));
+        .catch(err => res.json(err));
     } else {
-        res.status(404).json({
-            center: `No available ${cat} assistance centers in your location. We shall notify you when and if we do...`
-        })
+        res.status(404).json(`No available ${cat} assistance centers in your location. We shall notify you when and if we do...`)
     }
 }
 
@@ -67,10 +65,9 @@ const updateComplaint = async (req, res) => {
             }
 
             // Resolve Complaint
-            if (updateStatus === 'resolved') {
-                console.log(complaint)
-                complaint.status = updateStatus;
-                Complaint.findOneAndUpdate({status: true})
+            if (updateStatus === 'resolve') {
+                complaint.status = true;
+                complaint.save()
                 .then(() => {
                     res.json({
                         message: `Complaint ${complaintID} resolved successfully!`
