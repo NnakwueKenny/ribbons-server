@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "To help fight Gender-Based Violence...",
   "main": "server.js",
-
   "scripts": {
     "start": "node server.js"
   },
