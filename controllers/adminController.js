@@ -13,8 +13,8 @@ const register = async (req, res) => {
 
     Admin.findOne({
         $and: [
-            {loc: loc},
-            {$or: [{ username: username }, {email: email}]}
+            {loc: loc.toLowerCase()},
+            {$or: [{ username: username }, {email: email.toLowerCase()}]}
         ]
     }, (err, userExists) => {
         if (err) {
@@ -33,10 +33,10 @@ const register = async (req, res) => {
                             const user = new Admin({
                                 name: name,
                                 phone: phone,
-                                email: email,
+                                email: email.toLowerCase(),
                                 username: username,
                                 password: hashedPassword,
-                                loc: loc,
+                                loc: loc.toLowerCase(),
                             });
                 
                             user.save()
@@ -128,7 +128,7 @@ const adminchat = async (req, res) => {
         receiver: receiver,
         msg: msg,
         dept: dept,
-        loc: loc,
+        loc: loc.toLowerCase(),
         status: status
     });
 
