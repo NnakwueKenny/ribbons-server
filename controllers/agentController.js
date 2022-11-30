@@ -32,10 +32,10 @@ const register = async (req, res) => {
                             const agent = new Agent({
                                 name: name,
                                 phone: phone,
-                                email: email.toLowerCase(),
+                                email: email,
                                 username: username,
                                 password: hashedPassword,
-                                dept: dept.toLowerCase(),
+                                dept: dept,
                                 loc: loc.toLowerCase(),
                             });
                 
