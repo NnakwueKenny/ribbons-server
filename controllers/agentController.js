@@ -10,7 +10,7 @@ const register = async (req, res) => {
     // console.log('SPLITTED PASSWORD', password.split(' ').join('').length);
     console.log(name, phone, email, username, password, confirmPassword, dept, loc);
 
-    Agent.findOne({$or: [{ username: username }, {email: email} ]},
+    Agent.findOne({$or: [{ username: username.toLowerCase() }, {email: email.toLowerCase()} ]},
         (err, userExists) => {
         if (err) {
             return res.status(422).send(err);
@@ -32,11 +32,11 @@ const register = async (req, res) => {
                             const agent = new Agent({
                                 name: name,
                                 phone: phone,
-                                email: email,
+                                email: email.toLowerCase(),
                                 username: username,
                                 password: hashedPassword,
-                                dept: dept,
-                                loc: loc,
+                                dept: dept.toLowerCase(),
+                                loc: loc.toLowerCase(),
                             });
                 
                             agent.save()
@@ -75,7 +75,7 @@ const login = async (req, res, next) => {
     //     console.log('The result:',result)
     // })
     
-    await Agent.findOne({$or: [{username:username}, {email:username}]})
+    await Agent.findOne({$or: [{username: username.toLowerCase()}, {email:username.toLowerCase()}]})
     .then(agent => {
             bcrypt.compare(password, agent.password, (err, result) => {
                 if (err) {
