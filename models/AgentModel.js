@@ -30,9 +30,6 @@ const agentSchema = new Schema({
         type: String,
         required: true
     },
-    accessToken: {
-        type: String
-    },
     // avatars: {
     //     type: String
     // },

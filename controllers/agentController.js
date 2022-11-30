@@ -10,7 +10,7 @@ const register = async (req, res) => {
     // console.log('SPLITTED PASSWORD', password.split(' ').join('').length);
     console.log(name, phone, email, username, password, confirmPassword, dept, loc);
 
-    Agent.findOne({$or: [{ username: username.toLowerCase() }, {email: email.toLowerCase()} ]},
+    Agent.findOne({$or: [{ username: username }, {email: email} ]},
         (err, userExists) => {
         if (err) {
             return res.status(422).send(err);
