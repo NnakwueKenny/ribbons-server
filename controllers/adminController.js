@@ -129,8 +129,8 @@ const adminchat = async (req, res) => {
     const { sender, receiver, msg, dept, loc, status} = req.body;
     
     let adminChat = new AdminChat({
-        sender: sender,
-        receiver: receiver,
+        sender: receiver,
+        receiver: sender,
         msg: msg,
         dept: dept,
         loc: loc.toLowerCase(),
@@ -141,7 +141,7 @@ const adminchat = async (req, res) => {
     .then(adminChatRes => {
         // Update AllChats
         let allChats = new AllChats({
-            user: receiver,
+            user: sender,
             message: [
                 {
                     dept: dept,
