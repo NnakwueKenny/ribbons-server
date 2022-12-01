@@ -25,7 +25,7 @@ const sendDraft = async (req, res) => {
     .then(draft => {
         res.json(`Complaint saved successfully!`)
     })
-    .catch(err => res.json({err}));
+    .catch(err => res.json({error: 'All fields are required!'}));
 }
 
 const deleteDraft = async (req, res) => {
