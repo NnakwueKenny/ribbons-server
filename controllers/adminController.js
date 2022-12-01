@@ -169,7 +169,7 @@ const adminchat = async (req, res) => {
                 user.lastUpdatedAt = Date.now();
                 user.save()
                 .then(response => {
-                    res.json(user);
+                    res.json(response);
                 })
             } else {
                 allChats.save()
