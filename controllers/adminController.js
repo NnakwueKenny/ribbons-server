@@ -141,7 +141,7 @@ const adminchat = async (req, res) => {
     .then(adminChatRes => {
         // Update AllChats
         let allChats = new AllChats({
-            user: sender,
+            user: receiver,
             message: [
                 {
                     dept: dept,
@@ -169,9 +169,7 @@ const adminchat = async (req, res) => {
                 user.lastUpdatedAt = Date.now();
                 user.save()
                 .then(response => {
-                    res.json({
-                        response,
-                    });
+                    res.json(allChatRes);
                 })
             } else {
                 allChats.save()
