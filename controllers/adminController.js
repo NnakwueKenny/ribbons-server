@@ -127,7 +127,6 @@ const index = (req, res, next) => {
 // All about admin chats
 const adminchat = async (req, res) => {
     const { sender, receiver, msg, dept, loc, status} = req.body;
-    // console.log( sender, receiver, msg, reason, loc, status, sessionEnded );
     
     let adminChat = new AdminChat({
         sender: sender,
@@ -154,7 +153,7 @@ const adminchat = async (req, res) => {
             location: loc
         });
 
-        AllChats.findOne({ user: receiver })
+        AllChats.findOne({ user: sender })
         .then(user => {
             if (user) {
                 const messages = user.message;
@@ -164,9 +163,9 @@ const adminchat = async (req, res) => {
                     status: 'received'
                 })
                 user.message = messages;
-                if (user.location !== loc) [
+                if (user.location !== loc) {
                     user.location = loc
-                ]
+                }
                 user.lastUpdatedAt = Date.now();
                 user.save()
                 .then(response => {
@@ -177,10 +176,7 @@ const adminchat = async (req, res) => {
             } else {
                 allChats.save()
                 .then(allChatRes => {
-                    res.json({
-                        adminChatRes,
-                        allChatRes
-                    });
+                    res.json(allChatRes);
                 })
                 console.log('User not found!');
             }
