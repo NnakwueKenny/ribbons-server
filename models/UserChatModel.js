@@ -9,7 +9,6 @@ const userChatSchema = new Schema(
         },
         receiver: {
             type: String,
-            required: true
         },
         msg: {
             type: String,
