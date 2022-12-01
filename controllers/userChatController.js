@@ -1,19 +1,32 @@
 const UserChat = require('../models/UserChatModel');
 const AllChats = require('../models/AllChatsModel');
+const Admin = require('../models/AdminModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const userchat = async (req, res) => {
     // console.log('Request Body:', req.body);
     const { sender, receiver, msg, dept, loc, status } = req.body;
-    // console.log( sender, receiver, msg, reason, loc, status, sessionEnded );
-    
+    let receivingAdmin;
+    const adminsInLoc = await Admin.find( { loc: loc.toLowerCase() });
+
+    if (adminsInLoc.length > 0) {
+        const randomAgentInLocation = adminsInLoc[Math.floor(Math.random() * adminsInLoc.length)];      // Random Admin from above
+        receivingAdmin = randomAgentInLocation.username;
+    } else {
+        receivingAdmin = '+2348137926904';
+    }
+
+    if ( status == '1' ) {
+        console.log('From offline device');
+    }
+
     let userChat = new UserChat({
-        sender: sender,
+        sender: receivingAdmin,
         receiver: receiver,
         msg: msg,
         dept: dept,
-        loc: loc,
+        loc: loc.toLowerCase(),
         status: status
     });
 
