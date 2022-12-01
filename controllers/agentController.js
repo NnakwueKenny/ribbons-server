@@ -13,18 +13,18 @@ const register = async (req, res) => {
     Agent.findOne({$or: [{ username: username }, {email: email} ]},
         (err, userExists) => {
         if (err) {
-            return res.status(422).send(err);
+            return res.status(422).json({error: 'An error just occured'});
         }
         if (userExists) {
             console.log('Agent already exists.')
-            return res.status(422).send({
+            return res.status(422).json({
                 error: 'Agent already exists.'
             });
         } else {
             bcrypt.hash(password, 10, (err, hashedPassword) => {
                 if (err) {
                     res.json({
-                        error: err
+                        error: 'An error just occurred'
                     })
                 } else {
                     if (password !== '' || confirmPassword !== '') {
@@ -45,19 +45,16 @@ const register = async (req, res) => {
                                 })
                             )
                             .catch(err => {
-                                return {
-                                    err,
-                                    error: 'Oops, an error has occured!'
-                                }
+                                res.json ({error: 'Oops, an error has occured!'})
                             })
                         } else {
                             res.json(
-                                {passwordMismatch: 'Passwords do not match!'}
+                                {error: 'Passwords do not match!'}
                             )
                         }
                     } else {
                         res.json(
-                            {passwordEmpty: 'Please, provide password!'}
+                            {error: 'Please, provide password!'}
                         )
                     }
                 }
