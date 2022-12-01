@@ -35,7 +35,7 @@ const sendComplaint = async (req, res) => {
         .then(complaint => {
             res.json(`Complaint created successfully!`)
         })
-        .catch(err => res.json({error: 'Plese, fill all fields!'}));
+        .catch(() => res.json({error: 'All fields are required!'}));
     } else {
         res.status(404).json({error: `No available ${cat} assistance centers in your location. We shall notify you when and if we do...`})
     }
