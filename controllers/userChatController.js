@@ -17,13 +17,9 @@ const userchat = async (req, res) => {
         receivingAdmin = '+2348137926904';
     }
 
-    if ( status == '1' ) {
-        console.log('From offline device');
-    }
-
     let userChat = new UserChat({
-        sender: receivingAdmin,
-        receiver: receiver,
+        sender: sender,
+        receiver: receivingAdmin,
         msg: msg,
         dept: dept,
         loc: loc.toLowerCase(),
