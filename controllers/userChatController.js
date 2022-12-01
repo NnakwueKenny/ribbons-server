@@ -72,10 +72,7 @@ const userchat = async (req, res) => {
                 allChats.save()
                 .then(allChatRes => {
                     console.log(allChatRes, 'line 42');
-                    res.json({
-                        userChatRes,
-                        allChatRes
-                    });
+                    res.json( allChatRes );
                 })
                 console.log('User not found!');
             }
