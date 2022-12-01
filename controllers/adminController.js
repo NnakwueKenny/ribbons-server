@@ -153,7 +153,7 @@ const adminchat = async (req, res) => {
             location: loc
         });
 
-        AllChats.findOne({ user: sender })
+        AllChats.findOne({ user: receiver })
         .then(user => {
             if (user) {
                 const messages = user.message;
