@@ -25,6 +25,9 @@ const getAllDraftsRoute = require('./routes/getAllDrafts');
 const sendDraftRoute = require('./routes/sendDraft');
 const deleteDraftRoute = require('./routes/deleteDraft');
 
+const getAllSupportRoute = require('./routes/getAllSupport');
+const sendSupportRoute = require('./routes/sendSupport');
+const deleteSupportRoute = require('./routes/deleteSupport');
 
 const sendComplaintRoute = require('./routes/sendComplaint');
 const updateComplaintRoute = require('./routes/updateComplaint');
@@ -75,6 +78,11 @@ server.use('/agent', agentLoginRoute);
 // Draft Routes
 server.use('/draft', getAllDraftsRoute);
 server.use('/draft', sendDraftRoute);
+
+// Support Routes
+server.use('/support', getAllSupportRoute);
+server.use('/support', sendSupportRoute);
+server.use('/support', deleteSupportRoute);
 
 // Complaints Routes
 server.use('/complaint', sendComplaintRoute);
