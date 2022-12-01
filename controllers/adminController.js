@@ -141,7 +141,7 @@ const adminchat = async (req, res) => {
     .then(adminChatRes => {
         // Update AllChats
         let allChats = new AllChats({
-            user: receiver,
+            user: sender,
             message: [
                 {
                     dept: dept,
@@ -153,7 +153,7 @@ const adminchat = async (req, res) => {
             location: loc
         });
 
-        AllChats.findOne({ user: receiver })
+        AllChats.findOne({ user: sender })
         .then(user => {
             if (user) {
                 const messages = user.message;
