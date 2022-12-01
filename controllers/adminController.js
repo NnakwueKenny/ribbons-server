@@ -45,13 +45,17 @@ const register = async (req, res) => {
                                 })
                             )
                             .catch(err => {
-                                res.json('Oops, an error has occured!')
+                                res.json({error: 'Oops, an error has occured!'})
                             })
                         } else {
-                            res.json('Passwords do not match!')
+                            res.json(
+                                {error: 'Passwords do not match!'}
+                            )
                         }
                     } else {
-                        res.json('Please, provide password!')
+                        res.json(
+                            {error: 'Please, provide password!'}
+                        )
                     }
                 }
             });
@@ -62,12 +66,12 @@ const register = async (req, res) => {
 // Login Admin
 const login = async (req, res, next) => {
     let {username, password} = req.body;
-    Admin.findOne({$or: [{username:username}, {email:username}]})
+    Admin.findOne({$or: [{username:username.toLowerCase()}, {email:username.toLowerCase()}]})
     .then(admin => {
             bcrypt.compare(password, admin.password, (err, result) => {
                 if (err) {
                     res.json(
-                        {error: err}
+                        {error: 'An error just ocurred!'}
                     )
                 }
                 if (result) {
@@ -89,16 +93,18 @@ const login = async (req, res, next) => {
                 } else {
                     res.status(422).json(
                         {
-                            err: 'Password does not match!'
+                            error: 'Password does not match!'
                         }
                     )
                 }
             })
         }
     )
-    .catch (err => {console.log(err); res.json(
-        {err: 'No user matched the provided details!'}
-    )})
+    .catch (err => {console.log(err);
+        res.json(
+            {error: 'No Admin matched the provided details!'}
+        )
+    })
 }
 
 // Show all user's data

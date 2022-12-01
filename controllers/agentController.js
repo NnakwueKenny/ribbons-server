@@ -32,7 +32,7 @@ const register = async (req, res) => {
                             const agent = new Agent({
                                 name: name,
                                 phone: phone,
-                                email: email,
+                                email: email.toLowerCase(),
                                 username: username,
                                 password: hashedPassword,
                                 dept: dept,
@@ -77,7 +77,7 @@ const login = async (req, res, next) => {
             bcrypt.compare(password, agent.password, (err, result) => {
                 if (err) {
                     res.json(
-                        {error: err}
+                        {error: 'An error just ocurred!'}
                     )
                 }
                 if (result) {
@@ -89,7 +89,8 @@ const login = async (req, res, next) => {
                     res.json(
                         {
                             message: 'Login Successful',
-                            accessToken: accessToken
+                            accessToken: accessToken,
+                            location: agent.loc
                         }
                     )
                     agent.accessToken = accessToken;
@@ -98,16 +99,18 @@ const login = async (req, res, next) => {
                 } else {
                     res.status(422).json(
                         {
-                            err: 'Password does not match!'
+                            error: 'Password does not match!'
                         }
                     )
                 }
             })
         }
     )
-    // .catch (err => res.json(
-    //     {message: 'No agent matched the provided details!'}
-    // ))
+    .catch (err => {console.log(err);
+        res.json(
+            {error: 'No Agent matched the provided details!'}
+        )
+    })
 }
 
 // Show all agent's data
