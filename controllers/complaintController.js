@@ -35,7 +35,7 @@ const sendComplaint = async (req, res) => {
         .then(complaint => {
             res.json(`Complaint created successfully!`)
         })
-        .catch(err => res.json(err));
+        .catch(err => res.json({error: 'An error just occured'}));
     } else {
         res.status(404).json(`No available ${cat} assistance centers in your location. We shall notify you when and if we do...`)
     }
