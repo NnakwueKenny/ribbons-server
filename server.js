@@ -34,6 +34,9 @@ const updateComplaintRoute = require('./routes/updateComplaint');
 const getAllComplaintsRoute = require('./routes/getAllComplaints');
 const getOneComplaintRoute = require('./routes/getOneComplaint');
 
+const chatRoute = require('./routes/chat');
+const myChatsRoute = require('./routes/myChats');
+
 const connectDB = require('./config/dbConnection');
 connectDB();
 
@@ -83,6 +86,10 @@ server.use('/draft', sendDraftRoute);
 server.use('/support', getAllSupportRoute);
 server.use('/support', sendSupportRoute);
 server.use('/support', deleteSupportRoute);
+
+// Chats Routes
+server.use('/chat', chatRoute);
+server.use('/chat', myChatsRoute);
 
 // Complaints Routes
 server.use('/complaint', sendComplaintRoute);
