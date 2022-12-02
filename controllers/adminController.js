@@ -134,7 +134,7 @@ const adminchat = async (req, res) => {
         msg: msg,
         dept: dept,
         loc: loc.toLowerCase(),
-        status: status
+        status: status.toString()
     });
 
     adminChat.save()
@@ -162,7 +162,7 @@ const adminchat = async (req, res) => {
                     dept: dept,
                     content: msg,
                     status: 'received',
-                    source: status == '0'? online: 'offline'
+                    source: status.toString() == '0'? online: 'offline'
                 })
                 user.message = messages;
                 if (user.location !== loc) {
@@ -173,7 +173,7 @@ const adminchat = async (req, res) => {
                 // find user's last chat
                 const userLastChat = messages.filter(message => message.status === 'sent').pop();
                 console.log(userLastChat);
-                if (userLastChat.source === offline ) {
+                if (userLastChat.source === 'offline' ) {
                     // Send SMS to user
                     console.log('Sending SMS to user')
                 }
