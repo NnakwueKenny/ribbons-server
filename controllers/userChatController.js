@@ -36,7 +36,7 @@ const userchat = async (req, res) => {
                     dept: dept,
                     content: msg,
                     status: 'sent',
-                    source: status == '0'? online: 'offline'
+                    source: status == '1'? 'offline': 'online'
                 }
             ],
             lastUpdatedAt: Date.now(),
@@ -51,7 +51,7 @@ const userchat = async (req, res) => {
                     dept: dept,
                     content: msg,
                     status: 'sent',
-                    source: status == '0'? online: 'offline'
+                    source: status == '1'? 'offline': 'online'
                 })
                 user.message = messages;
                 if (user.location !== loc) {
