@@ -141,12 +141,13 @@ const adminchat = async (req, res) => {
     .then(adminChatRes => {
         // Update AllChats
         let allChats = new AllChats({
-            user: sender,
+            user: receiver,
             message: [
                 {
                     dept: dept,
                     content: msg,
-                    status: 'sent',
+                    status: 'received',
+                    source: status == '0'? online: 'offline'
                 }
             ],
             lastUpdatedAt: Date.now(),
@@ -160,7 +161,8 @@ const adminchat = async (req, res) => {
                 messages.push({
                     dept: dept,
                     content: msg,
-                    status: 'received'
+                    status: 'received',
+                    source: status == '0'? online: 'offline'
                 })
                 user.message = messages;
                 if (user.location !== loc) {
