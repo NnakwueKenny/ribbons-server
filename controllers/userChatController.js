@@ -78,7 +78,7 @@ const userchat = async (req, res) => {
     })
     .catch(err => {
         res.json({
-            message: err
+            messag: err
         });
     });
 }
