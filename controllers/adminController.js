@@ -147,7 +147,7 @@ const adminchat = async (req, res) => {
                     dept: dept,
                     content: msg,
                     status: 'received',
-                    source: status == '0'? online: 'offline'
+                    source: status == '1'? 'offline': 'online'
                 }
             ],
             lastUpdatedAt: Date.now(),
@@ -162,7 +162,7 @@ const adminchat = async (req, res) => {
                     dept: dept,
                     content: msg,
                     status: 'received',
-                    source: status.toString() == '0'? online: 'offline'
+                    source: status.toString() == '0'? 'offline': 'online'
                 })
                 user.message = messages;
                 if (user.location !== loc) {
