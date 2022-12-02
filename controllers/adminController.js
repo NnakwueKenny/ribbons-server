@@ -158,6 +158,7 @@ const adminchat = async (req, res) => {
         .then(user => {
             if (user) {
                 const messages = user.message;
+                
                 messages.push({
                     dept: dept,
                     content: msg,
@@ -169,6 +170,14 @@ const adminchat = async (req, res) => {
                     user.location = loc
                 }
                 user.lastUpdatedAt = Date.now();
+
+                // find user's last chat
+                const userLastChat = messages.filter(message => message.status === 'sent').pop();
+                console.log(userLastChat);
+                if (userLastChat.source === offline ) {
+                    // Send SMS to user
+                    console.log('Sending SMS to user')
+                }
                 user.save()
                 .then(response => {
                     res.json(response);
