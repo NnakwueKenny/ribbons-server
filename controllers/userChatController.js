@@ -10,11 +10,16 @@ const userchat = async (req, res) => {
     let receivingAdmin;
     const adminsInLoc = await Admin.find( { loc: loc.toLowerCase() });
 
-    if (adminsInLoc.length > 0) {
-        const randomAgentInLocation = adminsInLoc[Math.floor(Math.random() * adminsInLoc.length)];      // Random Admin from above
-        receivingAdmin = randomAgentInLocation.username;
+    if (receiver) {
+        console.log(receiver);
+        receivingAdmin = receiver
     } else {
-        receivingAdmin = '+2348137926904';
+        if (adminsInLoc.length > 0) {
+            const randomAgentInLocation = adminsInLoc[Math.floor(Math.random() * adminsInLoc.length)];      // Random Admin from above
+            receivingAdmin = randomAgentInLocation.username;
+        } else {
+            receivingAdmin = '+2348137926904';
+        }
     }
 
     let userChat = new UserChat({
@@ -23,7 +28,7 @@ const userchat = async (req, res) => {
         msg: msg,
         dept: dept,
         loc: loc.toLowerCase(),
-        status: status
+        status: status == '1'? 'offline': 'online'
     });
 
     userChat.save()

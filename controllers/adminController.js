@@ -134,7 +134,7 @@ const adminchat = async (req, res) => {
         msg: msg,
         dept: dept,
         loc: loc.toLowerCase(),
-        status: status.toString()
+        status: status == '1'? 'offline': 'online'
     });
 
     adminChat.save()
@@ -162,7 +162,7 @@ const adminchat = async (req, res) => {
                     dept: dept,
                     content: msg,
                     status: 'received',
-                    source: status.toString() == '0'? 'offline': 'online'
+                    source: status == '1'? 'offline': 'online'
                 })
                 user.message = messages;
                 if (user.location !== loc) {
