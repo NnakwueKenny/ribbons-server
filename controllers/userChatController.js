@@ -52,9 +52,9 @@ const userchat = async (req, res) => {
                     status: 'sent'
                 })
                 user.message = messages;
-                if (user.location !== loc) [
+                if (user.location !== loc) {
                     user.location = loc
-                ]
+                }
                 user.lastUpdatedAt = Date.now();
                 user.save()
                 .then(response => {

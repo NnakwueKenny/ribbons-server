@@ -129,8 +129,8 @@ const adminchat = async (req, res) => {
     const { sender, receiver, msg, dept, loc, status} = req.body;
     
     let adminChat = new AdminChat({
-        sender: receiver,
-        receiver: sender,
+        sender: sender,
+        receiver: receiver,
         msg: msg,
         dept: dept,
         loc: loc.toLowerCase(),
@@ -153,7 +153,7 @@ const adminchat = async (req, res) => {
             location: loc
         });
 
-        AllChats.findOne({ user: sender })
+        AllChats.findOne({ user: receiver })
         .then(user => {
             if (user) {
                 const messages = user.message;
