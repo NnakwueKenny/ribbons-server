@@ -158,7 +158,6 @@ const adminchat = async (req, res) => {
         .then(user => {
             if (user) {
                 const messages = user.message;
-                
                 messages.push({
                     dept: dept,
                     content: msg,
