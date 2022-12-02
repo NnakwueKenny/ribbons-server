@@ -24,7 +24,7 @@ const adminChatSchema = new Schema(
             required: true
         },
         status: {
-            type: Number
+            type: String
         }
     },
     {timestamps: true}
