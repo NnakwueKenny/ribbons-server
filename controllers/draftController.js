@@ -21,7 +21,6 @@ const sendDraft = async (req, res) => {
             .then(draft => {
                 res.json(`Complaint saved successfully!`)
             })
-            .catch()
             .catch(err => res.json({error: 'All fields are required!'}));
         })
     } else {
