@@ -14,20 +14,24 @@ const sendDraft = async (req, res) => {
     if (id) {
         Draft.findOne({id: id})
         .then(draft => {
-            draft.cat = cat;
-            draft.name = name;
-            draft.desc = desc;
-            draft.medium = medium;
-            draft.status = status;
-            draft.loc = loc;
-            draft.phone = phone;
-            draft.id = id;
-            
-            draft.save()
-            .then(draft => {
-                res.json(`Complaint saved successfully!`)
-            })
-            .catch(err => res.json({error: 'All fields are required!'}));
+            if (draft) {
+                draft.cat = cat;
+                draft.name = name;
+                draft.desc = desc;
+                draft.medium = medium;
+                draft.status = status;
+                draft.loc = loc;
+                draft.phone = phone;
+                draft.id = id;
+    
+                draft.save()
+                .then(draft => {
+                    res.json(`Complaint saved successfully!`)
+                })
+                .catch(err => res.json({error: 'All fields are required!'}));
+            } else {
+                res.json({error: `No draft with the following: ${id} found!`})
+            }
         })
     } else {
         const draft = new Draft({
