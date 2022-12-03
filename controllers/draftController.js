@@ -14,6 +14,7 @@ const sendDraft = async (req, res) => {
     if (id) {
         Draft.findOne({id: id})
         .then(draft => {
+            console.log(draft)
             if (draft) {
                 draft.cat = cat;
                 draft.name = name;
@@ -23,7 +24,7 @@ const sendDraft = async (req, res) => {
                 draft.loc = loc;
                 draft.phone = phone;
                 draft.id = id;
-    
+                
                 draft.save()
                 .then(draft => {
                     res.json(`Complaint saved successfully!`)
