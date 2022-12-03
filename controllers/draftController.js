@@ -8,24 +8,40 @@ const sendDraft = async (req, res) => {
     // console.log('Request Body:', req.body);
     // Generate random ID for the complaint
     const {v4: uuid} = require('uuid');
-    const {cat, name, desc, medium, status, loc, phone} = req.body;
-    console.log(cat, name, desc, medium, status, loc, phone);
-    const draft = new Draft({
-        cat: cat,
-        name: name,
-        desc: desc,
-        medium: medium,
-        status: status,
-        loc: loc,
-        phone: phone,
-        id: uuid()
-    })
+    const {cat, name, desc, medium, status, loc, phone, id} = req.body;
+    console.log(cat, name, desc, medium, status, loc, phone, id);
 
-    draft.save()
-    .then(draft => {
-        res.json(`Complaint saved successfully!`)
-    })
-    .catch(err => res.json({error: 'All fields are required!'}));
+    if (id) {
+        Draft.find({id: id})
+        .then(draft => {
+            draft = {
+                cat, name, desc, medium, status, loc, phone, id
+            }
+            draft.save()
+            .then(draft => {
+                res.json(`Complaint saved successfully!`)
+            })
+            .catch()
+            .catch(err => res.json({error: 'All fields are required!'}));
+        })
+    } else {
+        const draft = new Draft({
+            cat: cat,
+            name: name,
+            desc: desc,
+            medium: medium,
+            status: status,
+            loc: loc,
+            phone: phone,
+            id: uuid()
+        })
+
+        draft.save()
+        .then(draft => {
+            res.json(`Complaint saved successfully!`)
+        })
+        .catch(err => res.json({error: 'All fields are required!'}));
+    }
 }
 
 const deleteDraft = async (req, res) => {
