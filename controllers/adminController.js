@@ -200,9 +200,18 @@ const adminchat = async (req, res) => {
     });
 }
 
+const getAllAdmin = async (req, res) => {
+    Admin.find()
+    .then(data => {
+        res.json(data);
+    })
+    .catch(err => res.json({error: 'An error just occured'}));
+}
+
 module.exports = {
     register,
     login,
     index,
-    adminchat
+    adminchat,
+    getAllAdmin
 }

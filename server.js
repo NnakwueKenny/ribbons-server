@@ -15,6 +15,7 @@ const adminRoute = require('./routes/admin');
 const adminRegisterRoute = require('./routes/adminRegister');
 const adminLoginRoute = require('./routes/adminLogin');
 const adminChatRoute = require('./routes/adminChat');
+const getAllAdminRoute = require('./routes/getAllAdmin');
 
 const agentRoute = require('./routes/agent');
 const agentRegisterRoute = require('./routes/agentRegister');
@@ -69,6 +70,7 @@ server.use('/admin', adminRoute);
 server.use('/admin', adminRegisterRoute);
 server.use('/admin', adminLoginRoute);
 server.use('/admin', adminChatRoute);
+server.use('/admin', getAllAdminRoute);
 
 // Agent Routes
 server.use('/agent', agentRoute);
