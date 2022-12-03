@@ -12,7 +12,7 @@ const sendDraft = async (req, res) => {
     console.log(cat, name, desc, medium, status, loc, phone, id);
 
     if (id) {
-        Draft.find({id: id})
+        Draft.findOne({id: id})
         .then(draft => {
             draft = {
                 cat, name, desc, medium, status, loc, phone, id
