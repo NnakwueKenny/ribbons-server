@@ -81,6 +81,7 @@ server.use('/agent', agentLoginRoute);
 // Draft Routes
 server.use('/draft', getAllDraftsRoute);
 server.use('/draft', sendDraftRoute);
+server.use('/draft', deleteDraftRoute);
 
 // Support Routes
 server.use('/support', getAllSupportRoute);
