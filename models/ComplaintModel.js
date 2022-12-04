@@ -42,6 +42,9 @@ const complaintSchema = new Schema({
         type: String,
         required: true
     },
+    comment: {
+        type: String,
+    },
     id: {
         type: String
     }

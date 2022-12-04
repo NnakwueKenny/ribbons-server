@@ -43,7 +43,7 @@ const sendComplaint = async (req, res) => {
 
 const updateComplaint = async (req, res) => {
     console.log('Hello');
-    const { updateStatus, complaintID } = req.body;
+    const { updateStatus, complaintID, comment } = req.body;
 
     Complaint.findOne({id: complaintID})
     .then(complaint => {
@@ -67,6 +67,7 @@ const updateComplaint = async (req, res) => {
             // Resolve Complaint
             if (updateStatus === 'resolve') {
                 complaint.status = true;
+                complaint.comment = comment
                 complaint.save()
                 .then(() => {
                     res.json({
