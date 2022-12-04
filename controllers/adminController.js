@@ -202,8 +202,15 @@ const adminchat = async (req, res) => {
 
 const getAllAdmin = async (req, res) => {
     Admin.find()
-    .then(data => {
-        res.json(data);
+    .then(admins => {
+        const dataContainer = [];
+        admins.forEach(admin => {
+            dataContainer.push({
+                phone: admin.phone,
+                location: admin.loc
+            })
+        })
+        res.json(dataContainer);
     })
     .catch(err => res.json({error: 'An error just occured'}));
 }
