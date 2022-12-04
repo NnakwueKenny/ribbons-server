@@ -3702,3 +3702,11 @@
 20221130	02:52:24  2b052898-1dff-47b5-9823-87076a0bc150  POST http://localhost:3000 /complaint/get-all-complaints
 20221130	02:52:25  5e6bc5d6-cc26-4742-91d7-010c7eb4858c  POST http://localhost:3000 /complaint/get-all-complaints
 20221130	02:52:25  8387982d-bfa5-4df0-ad41-0b2d348a927a  POST http://localhost:3000 /complaint/get-all-complaints
+20221204	11:46:40  5464283e-f3d0-4a00-89b2-19c5a5ec5365  GET undefined /admin/currentUser
+20221204	11:47:16  93fb15c4-22c2-4b6e-ad2b-236bddeb0daf  GET undefined /admin/currentUser
+20221204	11:49:19  34c6d31e-7434-4958-8180-b9b64e95397e  GET undefined //admin/get-all-admin
+20221204	11:49:26  d0bbb92a-4622-4444-9ea7-f02a8e2f1268  GET undefined /admin/get-all-admin
+20221204	11:49:37  126151eb-a6b3-41e9-8c54-b0cfb5b79536  GET undefined /admin/currentUser
+20221204	11:50:27  6fa7b8fb-a9be-4bca-9202-9005a406716a  GET undefined /admin/get-all-admin
+20221204	11:51:24  a9f088f1-d893-4758-9cec-f2f5109864b3  OPTIONS http://localhost:3000 /admin/login
+20221204	11:51:24  951b2227-adc5-49c1-89e7-1c2c20778606  POST http://localhost:3000 /admin/login
