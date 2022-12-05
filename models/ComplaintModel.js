@@ -42,6 +42,14 @@ const complaintSchema = new Schema({
         type: String,
         required: true
     },
+    admin_phone: {
+        type: String,
+        required: true
+    },
+    agent_phone: {
+        type: String,
+        required: true
+    },
     comment: {
         type: String,
     },

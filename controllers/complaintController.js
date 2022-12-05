@@ -1,5 +1,6 @@
 const Complaint = require('../models/ComplaintModel');
 const Agent = require('../models/AgentModel');
+const Admin = require('../models/AdminModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -10,7 +11,15 @@ const sendComplaint = async (req, res) => {
     const {v4: uuid} = require('uuid');
     const {cat, severity, name, desc, medium, status, loc, phone, sent_by} = req.body;
     console.log(cat, severity, name, desc, medium, status, loc, phone, sent_by);
-
+    let adminPhone;
+    await Admin.findOne({username: sent_by})
+    .then(admin => {
+        if (admin) {
+            adminPhone = admin.phone
+        } else {
+            adminPhone = ''
+        }
+    })
     const agentsInLoc = await Agent.find( { $and: [ { dept: cat }, { loc: loc } ]});         //Agents in location under specified department
 
     if (agentsInLoc.length > 0) {
@@ -28,6 +37,8 @@ const sendComplaint = async (req, res) => {
             phone: phone,
             sent_by: sent_by,
             sent_to: sent_to,
+            admin_phone: adminPhone,
+            agent_phone: randomAgentInLocation.phone,
             id: complaintID
         })
     
