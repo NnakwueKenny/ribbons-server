@@ -17,7 +17,7 @@ const sendComplaint = async (req, res) => {
         if (admin) {
             adminPhone = admin.phone
         } else {
-            adminPhone = ''
+            adminPhone = 'No phone provided'
         }
     })
     const agentsInLoc = await Agent.find( { $and: [ { dept: cat }, { loc: loc } ]});         //Agents in location under specified department
@@ -70,7 +70,7 @@ const updateComplaint = async (req, res) => {
                 })
                 .catch(err => {
                     res.json({
-                        message: 'An error just occured!'
+                        message: 'An error just occured! Please, try again later!'
                     });
                 });
             }
@@ -87,7 +87,7 @@ const updateComplaint = async (req, res) => {
                 })
                 .catch(err => {
                     res.json({
-                        err: 'An error just occured!'
+                        err: 'An error just occured! Please, try again later'
                     });
                 });
             }
