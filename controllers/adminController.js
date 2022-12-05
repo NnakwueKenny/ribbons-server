@@ -84,7 +84,10 @@ const login = async (req, res, next) => {
                         {
                             message: 'Login Successful',
                             accessToken: accessToken,
-                            location: admin.loc
+                            location: admin.loc,
+                            username: admin.username,
+                            phone: admin.phone,
+                            name: admin.name
                         }
                     )
                     admin.accessToken = accessToken;
