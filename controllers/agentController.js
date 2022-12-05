@@ -90,7 +90,10 @@ const login = async (req, res, next) => {
                         {
                             message: 'Login Successful',
                             accessToken: accessToken,
-                            location: agent.loc
+                            location: agent.loc,
+                            username: agent.username,
+                            phone: agent.phone,
+                            name: agent.name
                         }
                     )
                     agent.accessToken = accessToken;

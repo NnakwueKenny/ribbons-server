@@ -53,7 +53,6 @@ const sendComplaint = async (req, res) => {
 }
 
 const updateComplaint = async (req, res) => {
-    console.log('Hello');
     const { updateStatus, complaintID, comment } = req.body;
 
     Complaint.findOne({id: complaintID})
