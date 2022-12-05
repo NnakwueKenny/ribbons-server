@@ -65,17 +65,17 @@ const deleteDraft = async (req, res) => {
             Draft.findOneAndRemove({id: draftID})
             .then(() => {
                 res.json({
-                    message: `Complaint ${draftID} removed successfully!`
+                    message: `Draft ${draftID} deleted successfully!`
                 });
             })
             .catch(err => {
                 res.json({
-                    message: 'An error just occured!'
+                    message: 'An error just occured, while deleting the draft!'
                 });
             });
         } else {
             return res.json({
-                message: 'Complaint not found'
+                message: 'Draft not found'
             });
         }
     })
