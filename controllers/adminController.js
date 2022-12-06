@@ -162,7 +162,7 @@ const adminchat = async (req, res) => {
             if (user) {
                 const messages = user.message;
                 messages.push({
-                    dept: dept,
+                    dept: dept.toLowerCase(),
                     content: msg,
                     status: 'received',
                     source: status == '1'? 'offline': 'online'
