@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 
 // Send Complaint
-const sendsupport = async (req, res) => {
+const sendSupport = async (req, res) => {
     // console.log('Request Body:', req.body);
     // Generate random ID for the complaint
     const {v4: uuid} = require('uuid');
@@ -54,7 +54,7 @@ const sendsupport = async (req, res) => {
     }
 }
 
-const deletesupport = async (req, res) => {
+const deleteSupport = async (req, res) => {
     console.log('Hello');
     const { supportID } = req.body;
 
@@ -81,7 +81,7 @@ const deletesupport = async (req, res) => {
     })
 }
 
-const getAllsupports = (req, res) => {
+const getAllSupports = (req, res) => {
     const { loc, username} = req.body;
 
     Support.find({ loc: loc })
@@ -94,7 +94,7 @@ const getAllsupports = (req, res) => {
 }
 
 module.exports = {
-    sendsupport,
-    deletesupport,
-    getAllsupports
+    sendSupport,
+    deleteSupport,
+    getAllSupports
 }
