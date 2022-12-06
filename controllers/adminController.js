@@ -180,7 +180,7 @@ const adminchat = async (req, res) => {
                 if (userLastChat?.source === 'offline' ) {
                     // Send SMS to user
                     console.log('Sending SMS to user');
-                    fetch(`https://fancy.com/api/sms/sendsms?username=farex&password=faruqcomputers&sender=Ribbons&recipient=%22${'+2348137926904'}%22&message=${msg}`)
+                    // fetch(`https://fancy.com/api/sms/sendsms?username=farex&password=faruqcomputers&sender=Ribbons&recipient=%22${'+2348137926904'}%22&message=${msg}`)
                 }
 
                 user.save()
