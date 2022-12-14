@@ -35,7 +35,7 @@ const sendSupport = async (req, res) => {
             }
         })
     } else {
-        const support = new support({
+        const support = new Support({
             cat: cat,
             name: name,
             desc: desc,
